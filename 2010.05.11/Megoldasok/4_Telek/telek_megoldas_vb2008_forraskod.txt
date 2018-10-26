@@ -1,0 +1,193 @@
+﻿Module Module1
+    Structure telek_tipus
+        Dim Hosszusag As Integer
+        Dim Szelesseg As Integer
+        Dim Terulet As Integer
+        Dim Hazszam As Integer
+        Dim Szel1 As Integer
+        Dim Szel2 As Integer
+        Dim GazdagSor As Boolean
+    End Structure
+    Dim Telek() As telek_tipus
+    Dim Telekszam As Integer
+    Sub Main()
+        Feladat1()
+        Feladat2()
+        Feladat3()
+        Feladat4()
+        Feladat5()
+        Feladat6()
+        Feladat7()
+        Console.WriteLine("A kilépéshez nyomjon meg egy tetszőleges billentyűt!")
+        Console.ReadKey()
+    End Sub
+    Sub Feladat1()
+        Dim f As New IO.StreamReader("telkek.txt")
+        Telekszam = CInt(f.ReadLine)
+        ReDim Telek(Telekszam - 1)
+        For i As Integer = 0 To Telekszam - 1
+            Dim sor As String = f.ReadLine
+            Dim reszek() As String = sor.Split(" ")
+            With Telek(i)
+                .Hazszam = reszek(0)
+                .Szelesseg = reszek(1)
+                .Hosszusag = reszek(2)
+                If .Hosszusag > 0 Then
+                    .GazdagSor = True
+                End If
+                .Terulet = .Szelesseg * .Hosszusag
+            End With
+        Next
+    End Sub
+    Sub Feladat2()
+        Dim UtcaHossz As Integer = 0
+        For i As Integer = 0 To Telekszam - 1
+            With Telek(i)
+                UtcaHossz += .Szelesseg
+            End With
+        Next
+        Console.WriteLine("2. feladat")
+        Console.WriteLine("A séta {0} m hosszú", UtcaHossz + 160)
+    End Sub
+    Sub Feladat3()
+        Dim TeljesBeepites As Integer = 0
+        For i As Integer = 0 To Telekszam - 2
+            With Telek(i)
+                If Not .GazdagSor And .Szelesseg <= 20 Then
+                    TeljesBeepites += 1
+                End If
+            End With
+        Next
+        Console.WriteLine("3. feladat")
+        Console.WriteLine("{0} db telekre vonatkozik a teljes utcafront beépítés Jólétsoron.", TeljesBeepites)
+    End Sub
+    Sub Feladat4()
+        Dim Kulonbseg As Integer = 0
+        Dim LegnagyobbIndex As Integer = 0
+        Dim LegkisebbIndex As Integer = 0
+        Dim Legnagyobb = 0, Legkisebb = 40 * 80
+        For i As Integer = 0 To Telekszam - 1
+            With Telek(i)
+                If .GazdagSor Then
+                    If .Terulet > Legnagyobb Then
+                        LegnagyobbIndex = i
+                        Legnagyobb = .Terulet
+                    End If
+                    If .Terulet < Legkisebb Then
+                        LegkisebbIndex = i
+                        Legkisebb = .Terulet
+                    End If
+                End If
+            End With
+        Next
+        Dim HazakSzama As Integer
+        HazakSzama = (Math.Abs(Telek(LegnagyobbIndex).Hazszam) - Telek(LegkisebbIndex).Hazszam - 2) / 2
+        Console.WriteLine("4. feladat")
+        Console.WriteLine("{0} háznyi távolságra van egymástól Gazdagsor legnagyobb és legkisebb telke", HazakSzama)
+        Console.WriteLine("Legnagyobb telek - házszám: {0}, terület: {1} m2", _
+                          Telek(LegnagyobbIndex).Hazszam, Telek(LegnagyobbIndex).Terulet)
+        Console.WriteLine("Legkisebb telek - házszám: {0}, terület: {1} m2", _
+                          Telek(LegkisebbIndex).Hazszam, Telek(LegkisebbIndex).Terulet)
+    End Sub
+    Sub Feladat5()
+        Dim OsszAdo As Integer
+        Const Adokulcs1 = 51, Adokulcs2 = 39
+        For i As Integer = 0 To Telekszam - 1
+            With Telek(i)
+                Dim Ado As Integer
+
+                If .GazdagSor Then
+                    Select Case .Terulet
+                        Case Is <= 700
+                            Ado = .Terulet * Adokulcs1
+                        Case 700 To 1000
+                            Ado = 700 * Adokulcs1 + (.Terulet - 700) * Adokulcs2
+                        Case Is > 1000
+                            Ado = 700 * Adokulcs1 + (300 * Adokulcs2) + 200
+                    End Select
+                    If .Szelesseg <= 15 Or .Hosszusag <= 25 Then
+                        Ado *= 0.8
+                    End If
+                    Ado = CInt(Ado / 100) * 100
+                    OsszAdo += Ado
+                End If
+            End With
+        Next
+        Console.WriteLine("5. feladat")
+        Console.WriteLine("A Gazdagsor után várható adó: {0} Fabatka", OsszAdo)
+    End Sub
+    Sub Feladat6()
+        For i As Integer = 0 To Telekszam - 2
+            For j As Integer = i To Telekszam - 1
+                Dim Seged As telek_tipus
+                If Telek(i).Hazszam > Telek(j).Hazszam Then
+                    Seged = Telek(i)
+                    Telek(i) = Telek(j)
+                    Telek(j) = Seged
+                End If
+            Next
+        Next
+        Szel()
+        Console.WriteLine("6. feladat")
+        Console.WriteLine("A 3 utolsó telek a Jólétsoron:")
+        Dim db As Integer = 0
+        Dim k As Integer = Telekszam - 1
+        Do
+            With Telek(k)
+                If Not .GazdagSor Then
+                    db += 1
+                    Console.WriteLine("Házszám: {0}, távolság a saroktól {1} m", .Hazszam, .Szel1)
+                End If
+            End With
+            k -= 1
+        Loop Until db = 3
+    End Sub
+    Sub Feladat7()
+        Dim f As New IO.StreamWriter("joletsor.csv")
+        For i As Integer = 0 To Telekszam - 1
+            With Telek(i)
+                If Not .GazdagSor Then
+                    .Hosszusag = 80
+                    For j As Integer = 0 To Telekszam - 1
+                        If Telek(j).GazdagSor Then
+                            If SzembenVane(.Szel1, .Szel2, Telek(j).Szel1, Telek(j).Szel2) Then
+                                If .Hosszusag > 80 - Telek(j).Hosszusag - 10 Then
+                                    .Hosszusag = 80 - Telek(j).Hosszusag - 10
+                                End If
+                            End If
+                        End If
+                    Next
+                    If .Hosszusag = 80 Then
+                        Console.ReadKey()
+                    End If
+                    f.WriteLine("{0};{1};{2}", .Hazszam, .Szelesseg, .Hosszusag)
+                End If
+            End With
+        Next
+        f.Close()
+    End Sub
+    Sub Szel()
+        Dim TavolsagASaroktol_JoletSor As Integer
+        Dim TavolsagASaroktol_GazdagSor As Integer
+        For j As Integer = 0 To Telekszam - 1
+            With Telek(j)
+                If .GazdagSor Then
+                    .Szel1 = TavolsagASaroktol_GazdagSor
+                    TavolsagASaroktol_GazdagSor += .Szelesseg
+                    .Szel2 = TavolsagASaroktol_GazdagSor
+                Else
+                    .Szel1 = TavolsagASaroktol_JoletSor
+                    TavolsagASaroktol_JoletSor += .Szelesseg
+                    .Szel2 = TavolsagASaroktol_JoletSor
+                End If
+            End With
+        Next
+    End Sub
+    Function SzembenVane(ByVal sz1_1 As Integer, ByVal sz1_2 As Integer, ByVal sz2_1 As Integer, ByVal sz2_2 As Integer) As Boolean
+        If (sz1_1 <= sz2_2 And sz2_1 <= sz1_2) Then
+            Return (True)
+        Else
+            Return False
+        End If
+    End Function
+End Module
