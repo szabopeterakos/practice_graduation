@@ -25,7 +25,5 @@ public class FileToList {
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
-
 	}
-
 }
