@@ -1,0 +1,18 @@
+NFL csapatok
+Csoport	Amerikai Futball Konferencia (AFC)	Nemzeti Futball Konferencia (NFC)
+Kelet	Buffalo Bills	Dallas Cowboys
+	Miami Dolphins	New York Giants
+	New England Patriots	Philadelphia Eagles
+	New York Jets	Washington Redskins
+Észak	Baltimore Ravens	Chicago Bears
+	Cincinnati Bengals	Detroit Lions
+	Cleveland Browns	Green Bay Packers
+	Pittsburgh Steelers	Minnesota Vikings
+Dél	Houston Texans	Atlanta Falcons
+	Indianapolis Colts	Carolina Panthers
+	Jacksonville Jaguars	New Orleans Saints
+	Tennessee Titans	Tampa Bay Buccaneers
+Nyugat	Denver Broncos	Arizona Cardinals
+	Kansas City Chiefs	St. Louis Rams
+	Oakland Raiders	San Francisco 49ers
+	San Diego Chargers	Seattle Seahawks

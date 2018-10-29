@@ -1,0 +1,48 @@
+1. ules: 42. utas
+2. ules: 28. utas
+3. ules: 60. utas
+4. ules: 33. utas
+5. ules: 95. utas
+6. ules:  ures
+7. ules:  ures
+8. ules: 81. utas
+9. ules: 84. utas
+10. ules:  ures
+11. ules:  ures
+12. ules: 105. utas
+13. ules: 9. utas
+14. ules: 71. utas
+15. ules: 22. utas
+16. ules: 67. utas
+17. ules:  ures
+18. ules: 61. utas
+19. ules:  ures
+20. ules: 83. utas
+21. ules:  ures
+22. ules: 16. utas
+23. ules: 45. utas
+24. ules: 97. utas
+25. ules:  ures
+26. ules: 55. utas
+27. ules: 37. utas
+28. ules:  ures
+29. ules: 113. utas
+30. ules: 12. utas
+31. ules:  ures
+32. ules:  ures
+33. ules: 91. utas
+34. ules:  ures
+35. ules: 62. utas
+36. ules:  ures
+37. ules: 54. utas
+38. ules:  ures
+39. ules: 89. utas
+40. ules: 7. utas
+41. ules:  ures
+42. ules: 85. utas
+43. ules: 32. utas
+44. ules:  ures
+45. ules:  ures
+46. ules:  ures
+47. ules: 82. utas
+48. ules: 106. utas
