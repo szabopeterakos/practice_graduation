@@ -83,10 +83,10 @@ public class Rejtveny {
 		feladvany.setFeladvany(true);
 
 		int perhapsSolution = 0;
-		ArrayList<Megoldas> szurtMegoldasok = new ArrayList<>();
+		ArrayList<Megoldas> szurtMegoldasok = new ArrayList<>(); // erre a feladatra erkezett megoldasok
 		for (Megoldas cM : megoldasok) {
-			if (!feladvany.megeleloToronypoziciok(feladvany, cM)) {
-				cM.getName();
+			if (!feladvany.megfeleloToronypoziciok(feladvany, cM)) {
+				System.out.println(cM.getName());
 			} else {
 				szurtMegoldasok.add(cM);
 				perhapsSolution++;
@@ -99,13 +99,22 @@ public class Rejtveny {
 		System.out.println("4. Feladat");
 		int rosszHajok = 0;
 		for (Megoldas megoldas : szurtMegoldasok) {
-			if (megoldas.getHajohSzama() > 12) {
+			if (megoldas.getHajoSzama() != 12) {
 				rosszHajok++;
 			}
 		}
 		System.out.printf("%d darab rosszmegoldas volt (hajok szama nem stimmelt)\n",rosszHajok);
 
 		System.out.println("5. Feladat");
+		int rosszHajokII = 0;
+		for (Megoldas megoldas : szurtMegoldasok) {
+			if (megoldas.getHajoSzama() > 12) {
+				megoldas.calculateSzomszedok();
+			}
+		}
+		
+		System.out.printf("%d darab rosszmegoldas volt (hajok szama stimmelt de a szomszedkapcsolatok szarok)\n",rosszHajokII);
+		
 		System.out.println("6. Feladat");
 	}
 

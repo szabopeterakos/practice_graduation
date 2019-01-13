@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.util.ArrayList;
 import java.util.Arrays;
 
 public class Megoldas {
@@ -14,6 +15,7 @@ public class Megoldas {
 	boolean megfeleloSzamuHajoLatszik;
 	int[][] palya = new int[10][10];
 	int hajohSzama = 0;
+	ArrayList<Integer> szomszedok = new ArrayList<>();
 
 	public void printPalya() {
 		// column
@@ -42,7 +44,7 @@ public class Megoldas {
 		}
 	}
 
-	public boolean megeleloToronypoziciok(Megoldas feladvany, Megoldas megoldas) {
+	public boolean megfeleloToronypoziciok(Megoldas feladvany, Megoldas megoldas) {
 		int[][] cfeladvany = feladvany.getPalya();
 		int[][] cmegoldas = megoldas.getPalya();
 
@@ -80,31 +82,50 @@ public class Megoldas {
 		}
 	}
 
-	public void szamlalSzomszedot() {
+	public void calculateSzomszedok() {
 		int[][] cmegoldas = getPalya();
-
+		int max = 10;
 		for (int i = 0; i < 10; i++) {
 			for (int j = 0; j < 10; j++) {
 				int actualisMegoldas = cmegoldas[i][j];
-				if (actualisMegoldas == 11) {
-					int szomszed1 = cmegoldas[i][j + 1];
-					int szomszed2 = cmegoldas[i][j - 1];
-
-					int szomszed3 = cmegoldas[i + 1][j + 1];
-					int szomszed4 = cmegoldas[i - 1][j + 1];
-
-					int szomszed5 = cmegoldas[i + 1][j - 1];
-					int szomszed6 = cmegoldas[i - 1][j - 1];
-
-					int szomszed7 = cmegoldas[i + 1][j];
-					int szomszed8 = cmegoldas[i - 1][j];
-					if (szomszed1 != 0 || szomszed2 != 0 || szomszed3 != 0 || szomszed4 != 0 || szomszed5 != 0
-							|| szomszed6 != 0 || szomszed7 != 0 || szomszed8 != 0) {
-//						return false;
-					}
+				// jobb
+				if (i + 1 < max) {
+					szomszedok.add(cmegoldas[i + 1][j]);
+				}
+				// bal
+				if (i - 1 >= 0) {
+					szomszedok.add(cmegoldas[i - 1][j]);
+				}
+				// lent
+				if (j + 1 < max) {
+					szomszedok.add(cmegoldas[i][j + 1]);
+				}
+				// fent
+				if (j - 1 >= 0) {
+					szomszedok.add(cmegoldas[i][j - 1]);
+				}
+				// jobbfent
+				if (i + 1 < max && j - 1 >= 0) {
+					szomszedok.add(cmegoldas[i + 1][j - 1]);
+				}
+				// balfent
+				if (i - 1 >= 0 && j - 1 >= 0) {
+					szomszedok.add(cmegoldas[i - 1][j - 1]);
+				}
+				// jobblent
+				if (i + 1 < max && j + 1 < max) {
+					szomszedok.add(cmegoldas[i + 1][j + 1]);
+				}
+				// ballent
+				if (i - 1 >= 0 && j + 1 < max) {
+					szomszedok.add(cmegoldas[i - 1][j + 1]);
 				}
 			}
 		}
+	}
+
+	public ArrayList<Integer> getSzomszedok() {
+		return szomszedok;
 	}
 
 	public int[][] getPalya() {
@@ -131,7 +152,7 @@ public class Megoldas {
 		this.isFeladvany = isFeladvany;
 	}
 
-	public int getHajohSzama() {
+	public int getHajoSzama() {
 		szamlalHajot();
 		return hajohSzama;
 	}
