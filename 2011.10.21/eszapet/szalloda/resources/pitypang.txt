@@ -10,7 +10,6 @@
 9 17 6 13 1 1 Szalai_Tibor
 10 18 6 16 1 1 Dobak_Agnes
 11 19 7 8 2 0 Kobor_Veronika
-12 25 7 21 1 1 Olah_Csilla
 13 15 8 22 3 0 Cseh_Adrienn
 14 7 9 17 2 1 Horvath_Krisztina
 15 16 9 13 1 1 Csuka_Agota
